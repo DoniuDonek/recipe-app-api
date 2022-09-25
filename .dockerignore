@@ -1,17 +1,15 @@
-# lista plików excluded z docker content
-
-# git:
+# Git
 .git
 .gitignore
 
 # Docker
 .docker
-# Python
 
+# Python
 app/__pycache__/
 app/*/__pycache__/
 app/*/*/__pycache__/
 app/*/*/*/__pycache__/
 .env/
-.venv
+.venv/
 venv/

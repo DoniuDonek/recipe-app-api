@@ -1,16 +1,20 @@
 """
-Django admin customization
+Django admin customization.
 """
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.utils.translation import gettext_lazy as _
+
 from core import models
-from django.utils.translation import gettext_lazy as _ # jak użyjemy underscore - tłumaczy tekst niezależnie od języka
+
+
 class UserAdmin(BaseUserAdmin):
-    """Define admin pages for users"""
+    """Define the admin pages for users."""
     ordering = ['id']
     list_display = ['email', 'name']
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
+        (_('Personal Info'), {'fields': ('name',)}),
         (
             _('Permissions'),
             {
@@ -26,7 +30,7 @@ class UserAdmin(BaseUserAdmin):
     readonly_fields = ['last_login']
     add_fieldsets = (
         (None, {
-            'classes': ('wide',), #szerszy widok, można zakomentować
+            'classes': ('wide',),
             'fields': (
                 'email',
                 'password1',
@@ -35,8 +39,12 @@ class UserAdmin(BaseUserAdmin):
                 'is_active',
                 'is_staff',
                 'is_superuser',
-            )
+            ),
         }),
     )
 
+
 admin.site.register(models.User, UserAdmin)
+admin.site.register(models.Recipe)
+admin.site.register(models.Tag)
+admin.site.register(models.Ingredient)
